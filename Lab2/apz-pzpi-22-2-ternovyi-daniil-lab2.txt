@@ -32,7 +32,7 @@
  
       Метою  роботи  є  розробити  базу  даних  для  серверної  частини  та прикладного  програмного  інтерфейсу  для  програмної  системи  оренди малих складів. 
  
-1 ХІД РОБОТИ 
+2 ХІД РОБОТИ 
  
       Робота над лабораторним проектом розпочалася зі створення детального проекту системи. Першим етапом стало проектування UML-діаграми прецедентів для системи оренди складів, яка охоплює основні та спеціалізовані функції. Для забезпечення чіткості та деталізації, діаграма була розбита на кілька частин, що наведені у Додатку А. 
       На другому етапі було створено ER-діаграму, яка демонструє зв’язки між сутностями системи та слугує основою для моделювання даних. Побудована ER-діаграма представлена у Додатку Б, а на її основі розроблена структура бази даних, відображена у вигляді діаграми в Додатку В. 
@@ -54,1191 +54,232 @@
  
 
 
-ДОДАТОК А 
-UML – діаграма прецедентів 
- 
-Рисунок А.1 – UML – діаграма прецедентів 
- 
-
+ДОДАТОК А
+Відеозапис презентації результатів лабораторної роботи: https://youtu.be/AWRQZ0rmSO8
+0:00 – Вступ
+0:10 – Робота з сутністю Menu
+1:50 – Робота з MenuItem
+3:30 – Робота з Order
+6:40 – Робота з OrderItem
+9:00 – Робота з Review
+10:55 – Висновок
 
 ДОДАТОК Б 
-ER – діаграма бази даних 
- 
-Рисунок Б.1 – ER-діаграма бази даних 
- 	 
+Графічні матеріали
 
+
+Рисунок Б.1 — ER-діаграма даних
+
+
+Рисунок Б.2 — Структура бази даних
+
+
+Рисунок Б.3 — UML-діаграма прецедентів
 
 
 ДОДАТОК В 
-Діаграма структури бази даних 
- 
-Рисунок В.1 – Діаграма структури бази даних 
- 	 
+Програмний код
 
 
-ДОДАТОК Г 
-Swagger специфікація API 
-{ 
-  "openapi": "3.0.1", 
-  "info": { 
-    "title": "ChefMate", 
-    "version": "v1" 
-  }, 
-  "paths": { 
-    "/api/Auth/register": { 
-      "post": { 
-        "tags": [ 
-          "Auth" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/RegisterRequest" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/RegisterRequest" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/RegisterRequest" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Auth/login": { 
-      "post": { 
-        "tags": [ 
-          "Auth" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/LoginRequest" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/LoginRequest" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/LoginRequest" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Menu": {       "get": { 
-        "tags": [ 
-          "Menu" 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      }, 
-      "post": { 
-        "tags": [ 
-          "Menu" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      }, 
-      "delete": { 
-        "tags": [ 
-          "Menu" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Menu/{id}": { 
-      "get": { 
-        "tags": [ 
-          "Menu" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      }, 
-      "put": { 
-        "tags": [ 
-          "Menu" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      }, 
-      "delete": { 
-        "tags": [ 
-          "Menu" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/MenuItem": { 
-      "get": { 
-        "tags": [ 
-          "MenuItem" 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/MenuItem/{id}": { 
-      "get": { 
-        "tags": [ 
-          "MenuItem" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/MenuItem/post": { 
-      "post": { 
-        "tags": [ 
-          "MenuItem" 
-        ], 
-        "requestBody": {           "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/MenuItem/update": { 
-      "put": { 
-        "tags": [ 
-          "MenuItem" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/MenuItem/delete/{id}": { 
-      "delete": {         "tags": [ 
-          "MenuItem" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-} 
-        } 
-      } 
-    }, 
-    "/api/MenuItem/delete": { 
-      "delete": {         "tags": [ 
-          "MenuItem" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/MenuItemDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Order": { 
-      "get": { 
-        "tags": [ "Order" 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Order/{id}": { 
-      "get": { 
-        "tags": [ 
-          "Order" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Order/post": { 
-      "post": { 
-        "tags": [ 
-          "Order" 
-        ], 
-        "requestBody": { 
-"content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Order/update": { 
-      "put": { 
-        "tags": [ 
-          "Order" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Order/delete/{id}": { 
-      "delete": {         "tags": [ 
-          "Order" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id", 
-            "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Order/delete": { 
-      "delete": {         "tags": [ 
-          "Order" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/OrderItem": { 
-      "get": { 
-        "tags": [ 
-          "OrderItem" 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/OrderItem/{id}": { 
-      "get": { 
-        "tags": [ 
-          "OrderItem" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/OrderItem/post": { 
-      "post": { 
-        "tags": [ 
-          "OrderItem" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": {               "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/OrderItem/update": { 
-      "put": { 
-        "tags": [ 
-          "OrderItem" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto"               } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/OrderItem/delete/{id}": { 
-      "delete": {         "tags": [ 
-          "OrderItem" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/OrderItem/delete": { 
-      "delete": {         "tags": [ 
-          "OrderItem" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/OrderItemDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Review": { 
-      "get": { 
-        "tags": [ 
-          "Review" 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Review/{id}": { 
-      "get": { 
-        "tags": [ 
-          "Review" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Review/post": { 
-      "post": { 
-        "tags": [ 
-          "Review" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Review/update": { 
-      "put": { 
-        "tags": [ 
-          "Review" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Review/delete/{id}": { 
-      "delete": {         "tags": [ 
-          "Review" 
-        ], 
-        "parameters": [ 
-          { 
-            "name": "id",             "in": "path", 
-            "required": true, 
-            "schema": { 
-              "type": "string", 
-              "format": "uuid" 
-            } 
-          } 
-        ], 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    }, 
-    "/api/Review/delete": { 
-      "delete": {         "tags": [ 
-          "Review" 
-        ], 
-        "requestBody": { 
-          "content": { 
-            "application/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            }, 
-            "text/json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            }, 
-            "application/*+json": { 
-              "schema": { 
-                "$ref": "#/components/schemas/ReviewDto" 
-              } 
-            } 
-          } 
-        }, 
-        "responses": { 
-          "200": { 
-            "description": "OK" 
-          } 
-        } 
-      } 
-    } 
-  }, 
-  "components": { 
-    "schemas": { 
-      "KitchenTaskStatus": { 
-        "enum": [ 
-          0,           1,           2, 
-          3 
-        ], 
-        "type": "integer", 
-        "format": "int32" 
-      }, 
-      "LoginRequest": { 
-        "type": "object", 
-        "properties": { 
-          "email": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "password": { 
-            "type": "string", 
-            "nullable": true 
-          } 
-        }, 
-        "additionalProperties": false 
-      }, 
-      "MenuDto": { 
-        "type": "object", 
-        "properties": { 
-          "id": { 
-            "type": "string", 
-            "format": "uuid", 
-            "nullable": true 
-          }, 
-          "ownerId": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "name": { 
-            "type": "string", 
-            "nullable": true 
-          } 
-        }, 
-        "additionalProperties": false       }, 
-      "MenuItemDto": { 
-        "type": "object", 
-        "properties": { 
-          "id": { 
-            "type": "string", 
-            "format": "uuid", 
-            "nullable": true 
-          }, 
-          "name": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "description": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "price": { 
-            "type": "number", 
-            "format": "double" 
-          }, 
-          "imageUrl": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "isAvailable": { 
-            "type": "boolean" 
-          }, 
-          "menuId": { 
-            "type": "string", 
-            "format": "uuid" 
-          } 
-        }, 
-        "additionalProperties": false 
-      }, 
-      "OrderDto": { 
-        "type": "object", 
-        "properties": { 
-          "id": { 
-            "type": "string", 
-            "format": "uuid" 
-          }, 
-          "customerId": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "waiterId": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "chefId": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "orderDate": { 
-            "type": "string", 
-            "format": "date-time" 
-          }, 
-          "status": { 
-            "$ref": "#/components/schemas/OrderStatus" 
-          }, 
-          "totalAmount": { 
-            "type": "number", 
-            "format": "double" 
-          } 
-        }, 
-        "additionalProperties": false 
-      }, 
-      "OrderItemDto": { 
-        "type": "object", 
-        "properties": { 
-          "id": { 
-            "type": "string", 
-            "format": "uuid" 
-          }, 
-          "orderId": { 
-            "type": "string", 
-            "format": "uuid" 
-          }, 
-          "menuItemId": { 
-            "type": "string", 
-            "format": "uuid" 
-          }, 
-          "priority": { 
-            "type": "integer", 
-            "format": "int32" 
-          }, 
-          "status": { 
-            "$ref": "#/components/schemas/KitchenTaskStatus" 
-          }, 
-          "quantity": { 
-            "type": "integer", 
-            "format": "int32" 
-          }, 
-          "price": { 
-            "type": "number", 
-            "format": "double" 
-          } 
-        }, 
-        "additionalProperties": false 
-      }, 
-      "OrderStatus": { 
-        "type": "integer", 
-        "format": "int32" 
-      }, 
-      "RegisterRequest": { 
-        "type": "object", 
-        "properties": { 
-          "email": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "password": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "role": { 
-            "type": "string", 
-            "nullable": true 
-          } 
-        }, 
-        "additionalProperties": false 
-      }, 
-      "ReviewDto": { 
-        "type": "object", 
-        "properties": { 
-          "id": { 
-            "type": "string", 
-            "format": "uuid" 
-          }, 
-          "customerId": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "orderId": { 
-            "type": "string", 
-            "format": "uuid" 
-          }, 
-          "feedback": { 
-            "type": "string", 
-            "nullable": true 
-          }, 
-          "rating": { 
-            "type": "integer", 
-            "format": "int32" 
-          }, 
-          "date": { 
-            "type": "string", 
-            "format": "date-time" 
-          } 
-        }, 
-        "additionalProperties": false       } 
-    }, 
-    "securitySchemes": { 
-      "Bearer": { 
-        "type": "http", 
-        "description": "JWT Authorization header using the Bearer scheme. 
-Example: \"Bearer {token}\"", 
-        "scheme": "bearer", 
-        "bearerFormat": "JWT" 
-      } 
-    } 
-  }, 
-  "security": [ 
-    { 
-      "Bearer": [ ] 
-    } 
-  ] 
-} 
- 
+      В.1 Математична обробка прикладних даних
 
+GitHub репозиторій: https://github.com/NureTernovyiDaniil/apz-pzpi-22-2-ternovyi-daniil/blob/main/Lab2/apz-pzpi-22-2-ternovyi-daniil-lab2/Services/OrdersService.cs
 
- 	 
-ДОДАТОК Д 
-Приклад програмного коду 
-using AutoMapper; using ChefMate_backend; using ChefMate_backend.Models; using ChefMate_backend.Repositories; using ChefMate_backend.Services; 
-using Microsoft.AspNetCore.Authentication.JwtBearer; using Microsoft.AspNetCore.Identity; using Microsoft.EntityFrameworkCore; using Microsoft.IdentityModel.Tokens; using Microsoft.OpenApi.Models; using System.Text; 
- 
-var builder = WebApplication.CreateBuilder(args); 
- 
-//Connect database context to MSSQL 
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnec tion"))); 
- 
-//Registrate IMapper 
-IMapper mapper = MappingConfig.RegisterMaps().CreateMapper(); builder.Services.AddSingleton(mapper); 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
- 
-//Registrate JwtService and JwtSettings 
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt Settings")); 
-builder.Services.AddScoped<JwtTokenService>(); 
- 
-//Add identity requerements 
-builder.Services.AddIdentity<ChefMateUser, ChefMateRole>(options => 
-{ 
-    options.Password.RequireDigit = true;     options.Password.RequiredLength = 6;     options.Password.RequireNonAlphanumeric = false;     options.Password.RequireUppercase = false;     options.Password.RequireLowercase = true;     options.User.RequireUniqueEmail = true; 
-}) 
-.AddEntityFrameworkStores<ApplicationDbContext>() 
-.AddDefaultTokenProviders(); 
- 
-//Add auth and Bearer 
-builder.Services.AddAuthentication(options => 
-{ 
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; 
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; }).AddJwtBearer(options => 
-{ 
-    var jwtSettings = 
-builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();     options.TokenValidationParameters = new TokenValidationParameters 
-    { 
-        ValidateIssuer = true, 
-        ValidateAudience = true,         ValidateLifetime = true, 
-        ValidateIssuerSigningKey = true, 
-        ValidIssuer = jwtSettings.Issuer, 
-        ValidAudience = jwtSettings.Audience, 
-        IssuerSigningKey = new 
-SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)) 
-    }; 
-});  
-builder.Services.AddControllersWithViews(); 
- 
-builder.Services.ConfigureApplicationCookie(options => 
-{ 
-    options.ExpireTimeSpan = TimeSpan.FromDays(14);     options.SlidingExpiration = true; 
-}); 
- 
-//Registrate services in DI container 
-builder.Services.AddScoped<IOrderRepository, OrderRepository>(); builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>(); builder.Services.AddScoped<IReviewRepository, ReviewRepository>(); builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>(); builder.Services.AddScoped<IMenuRepository, MenuRepository>(); 
- 
-builder.Services.AddControllers() 
-.AddJsonOptions(options => 
-{ 
-    options.JsonSerializerOptions.ReferenceHandler = 
-System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles; 
-}); 
- 
-//Add swagger 
-builder.Services.AddSwaggerGen(options => 
-{ 
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "ChefMate", Version = "v1" });  
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme 
-    { 
-        Name = "Authorization", 
-        Type = SecuritySchemeType.Http, 
-        Scheme = "bearer", 
-        BearerFormat = "JWT", 
-        In = ParameterLocation.Header, 
-        Description = "JWT Authorization header using the Bearer scheme. 
-Example: \"Bearer {token}\"" 
-    }); 
- 
-    //Add security scheme to Bearer 
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement 
-    {         { 
-            new OpenApiSecurityScheme 
-            { 
-                Reference = new OpenApiReference 
-                { 
-                    Type = ReferenceType.SecurityScheme, 
-                    Id = "Bearer" 
-                }             },             new string[] {} 
-        } 
-    }); 
-});  
-var app = builder.Build(); 
- 
-// Code for automigration and roles creating using (var scope = app.Services.CreateScope()) 
-{ 
-    var services = scope.ServiceProvider; 
-     try     { 
-        var context = services.GetRequiredService<ApplicationDbContext>();         context.Database.Migrate(); 
-    } 
-    catch (Exception ex) 
-    { 
-        var logger = services.GetRequiredService<ILogger<Program>>();         logger.LogError(ex, "Error occurred while migrating the database");     }      try     { 
-        var roleManager = 
-services.GetRequiredService<RoleManager<ChefMateRole>>(); 
- 
-        var roles = new List<ChefMateRole> 
-        { 
-            new ChefMateRole { Name = "Admin" },             new ChefMateRole { Name = "Customer" },             new ChefMateRole { Name = "Chef" }, 
-            new ChefMateRole { Name = "Waiter" } 
-        };  
-        foreach (var role in roles) 
-        { 
-            if (!roleManager.RoleExistsAsync(role.Name).Result) 
-            { 
-                roleManager.CreateAsync(role).Wait(); 
-            } 
-        }     } 
-    catch (Exception ex) 
-    { 
-        var logger = services.GetRequiredService<ILogger<Program>>();         logger.LogError(ex, "An error occurred creating the DB."); 
-    } 
-}  
-if (app.Environment.IsDevelopment()) 
-{ 
-    app.UseDeveloperExceptionPage();     app.UseSwagger(); 
-    //Configurate endpoint for swagger in production     app.UseSwaggerUI(c => 
-    { 
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChefMate V1"); 
-        c.RoutePrefix = "swagger"; 
-    }); } else { 
-    app.UseExceptionHandler("/Home/Error");     app.UseHsts(); 
-}  
-app.UseHttpsRedirection(); app.UseStaticFiles(); app.UseRouting(); 
- 
-app.UseAuthentication(); app.UseAuthorization(); 
- 
-app.MapControllerRoute(     name: "default", 
-    pattern: "{controller=Home}/{action=Index}/{id?}"); 
- app.Run(); 
- 
- 	 
+1 using AutoMapper;
+2 using ChefMate_backend.Models;
+3 using ChefMate_backend.Repositories;
+4 
+5 namespace ChefMate_backend.Services
+6 {
+7     public class OrdersService
+8     {
+9         private readonly IOrderRepository _orderRepository;
+10         private readonly IOrderItemRepository _orderItemRepository;
+11         private readonly IMapper _mapper;
+12         private readonly IMenuItemRepository _menuItemRepository;
+13 
+14         public OrdersService(IOrderRepository orderRepository, IMapper mapper, 
+15             IMenuItemRepository menuItemRepository, IOrderItemRepository orderItemRepository)
+16         {
+17             _orderRepository = orderRepository;
+18             _mapper = mapper;
+19             _menuItemRepository = menuItemRepository;
+20             _orderItemRepository = orderItemRepository;
+21         }
+22 
+23         public async Task HandleOrder(Guid orderId)
+24         {
+25             var order = await _orderRepository.Retrieve(orderId);
+26             if (order == null)
+27             {
+28                 throw new KeyNotFoundException($"Order doesn`t exists");
+29             }
+30 
+31             var menuItemIds = order.OrderItems
+32                 .Select(x => x.MenuItemId)
+33                 .Distinct()
+34                 .ToList();
+35 
+36             var menuItems = await _menuItemRepository.Retrieve(menuItemIds);
+37             var menuItemsDict = menuItems.ToDictionary(m => m.Id, m => m.Price);
+38 
+39             foreach (var orderItem in order.OrderItems)
+40             {
+41                 if (menuItemsDict.TryGetValue(orderItem.MenuItem.Id, out var price))
+42                 {
+43                     orderItem.Price = price;
+44                     await _orderItemRepository.Update(_mapper.Map<OrderItemDto>(orderItem));
+45                 }
+46             }
+47 
+48             order.TotalAmount = order.OrderItems.Sum(x => x.Price * x.Quantity);
+49 
+50             var orderDto = _mapper.Map<OrderDto>(order);
+51             await _orderRepository.Update(orderDto);
+52         }
+53     }
+54 }
+55
 
-ДОДАТОК Е 
-Відео-посилання на Youtube  
-https://youtu.be/AWRQZ0rmSO8 
+      В.2 Резервне копіювання користувацьких даних
+
+GitHub репозиторій: https://github.com/NureTernovyiDaniil/apz-pzpi-22-2-ternovyi-daniil/blob/main/Lab2/apz-pzpi-22-2-ternovyi-daniil-lab2/Services/DatabaseBackupService.cs
+
+1 using System.Data.SqlClient;
+2 
+3 public class DatabaseBackupService
+4 {
+5     private readonly string _connectionString;
+6 
+7     public DatabaseBackupService(IConfiguration configuration)
+8     {
+9         _connectionString = configuration.GetConnectionString("DefaultConnection");
+10     }
+11 
+12     public async Task<string> CreateBackupAsync()
+13     {
+14         var databaseName = new SqlConnectionStringBuilder(_connectionString).InitialCatalog;
+15         var fileName = $"backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+16         var backupFolder = Path.Combine(Path.GetTempPath(), "DbBackups");
+17 
+18         Directory.CreateDirectory(backupFolder);
+19 
+20         var backupFilePath = Path.Combine(backupFolder, fileName);
+21 
+22         var backupSql = $@"
+23             BACKUP DATABASE [{databaseName}]
+24             TO DISK = @BackupFilePath
+25             WITH FORMAT,
+26                  MEDIANAME = 'DbBackups',
+27                  NAME = 'Full Backup of {databaseName}';";
+28 
+29         using var connection = new SqlConnection(_connectionString);
+30         using var command = new SqlCommand(backupSql, connection);
+31         command.Parameters.AddWithValue("@BackupFilePath", backupFilePath);
+32 
+33         await connection.OpenAsync();
+34         await command.ExecuteNonQueryAsync();
+35 
+36         return backupFilePath;
+37     }
+38 }
+
+      В.3 Адміністрування бізнес-логіки системи
+
+GitHub репозиторій: https://github.com/NureTernovyiDaniil/apz-pzpi-22-2-ternovyi-daniil/blob/main/Lab2/apz-pzpi-22-2-ternovyi-daniil-lab2/Program.cs
+
+1 using AutoMapper;
+2 using ChefMate_backend;
+3 using ChefMate_backend.Models;
+4 using ChefMate_backend.Repositories;
+5 using Microsoft.EntityFrameworkCore;
+6 using System.Text;
+7 
+8 var builder = WebApplication.CreateBuilder(args);
+9 
+10 builder.Services.AddDbContext<ApplicationDbContext>(options =>
+11     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+12 
+13 builder.Services.AddDbContext<IdentityContext>(options =>
+14     options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
+15 
+16 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+17 builder.Services.AddSingleton(mapper);
+18 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+19 
+20 builder.Services.AddControllersWithViews();
+21 
+22 builder.Services.ConfigureApplicationCookie(options =>
+23 {
+24     options.ExpireTimeSpan = TimeSpan.FromDays(14);
+25     options.SlidingExpiration = true;
+26 });
+27 
+28 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+29 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+30 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+31 builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>();
+32 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+33 builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+34 
+35 builder.Services.AddControllers()
+36 .AddJsonOptions(options =>
+37 {
+38     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+39 });
+40 
+41 builder.Services.AddSwaggerGen(options =>
+42 {
+43     options.SwaggerDoc("v1", new OpenApiInfo { Title = "ChefMate", Version = "v1" });
+44 });
+45 
+46 var app = builder.Build();
+47 
+48 using (var scope = app.Services.CreateScope())
+49 {
+50     var services = scope.ServiceProvider;
+51 
+52     try
+53     {
+54         var context = services.GetRequiredService<ApplicationDbContext>();
+55         context.Database.Migrate();
+56 
+57         var identityContext = services.GetRequiredService<IdentityContext>();
+58         identityContext.Database.Migrate();
+59     }
+60     catch (Exception ex)
+61     {
+62         var logger = services.GetRequiredService<ILogger<Program>>();
+63         logger.LogError(ex, "Error occurred while migrating the database");
+64     }
+65 }
+66 
+67 if (app.Environment.IsDevelopment())
+68 {
+69     app.UseDeveloperExceptionPage();
+70     app.UseSwagger();
+71     app.UseSwaggerUI(c =>
+72     {
+73         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChefMate V1");
+74         c.RoutePrefix = "swagger";
+75     });
+76 }
+77 else
+78 {
+79     app.UseExceptionHandler("/Home/Error");
+80     app.UseHsts();
+81 }
+82 
+83 app.UseHttpsRedirection();
+84 app.UseStaticFiles();
+85 
+86 app.UseRouting();
+87 
+88 app.UseAuthentication();
+89 app.UseAuthorization();
+90 
+91 app.MapControllerRoute(
+92     name: "default",
+93     pattern: "{controller=Home}/{action=Index}/{id?}");
+94 
+95 app.Run();
