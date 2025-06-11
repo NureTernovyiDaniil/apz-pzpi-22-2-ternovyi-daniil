@@ -1,5 +1,6 @@
 ﻿using ChefMate_backend.Models;
 using ChefMate_backend.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChefMate_backend.Controllers
@@ -15,6 +16,7 @@ namespace ChefMate_backend.Controllers
             _orderRepository = orderRepository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -22,6 +24,7 @@ namespace ChefMate_backend.Controllers
             return Ok(orders);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -29,6 +32,7 @@ namespace ChefMate_backend.Controllers
             return Ok(order);
         }
 
+        [Authorize]
         [HttpPost("post")]
         public async Task<IActionResult> Post(OrderDto order)
         {
@@ -41,6 +45,7 @@ namespace ChefMate_backend.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> Update(OrderDto order)
         {
@@ -53,6 +58,7 @@ namespace ChefMate_backend.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -65,6 +71,7 @@ namespace ChefMate_backend.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete(OrderDto order)
         {

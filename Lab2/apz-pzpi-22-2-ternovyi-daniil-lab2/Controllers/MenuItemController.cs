@@ -1,5 +1,6 @@
 ﻿using ChefMate_backend.Models;
 using ChefMate_backend.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChefMate_backend.Controllers
@@ -29,6 +30,7 @@ namespace ChefMate_backend.Controllers
             return Ok(menuItem);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("post")]
         public async Task<IActionResult> Post(MenuItemDto menuItem)
         {
@@ -41,6 +43,7 @@ namespace ChefMate_backend.Controllers
             return BadRequest();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update")]
         public async Task<IActionResult> Update(MenuItemDto menuItem)
         {
@@ -53,6 +56,7 @@ namespace ChefMate_backend.Controllers
             return BadRequest();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -65,6 +69,7 @@ namespace ChefMate_backend.Controllers
             return BadRequest();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete(MenuItemDto menuItem)
         {

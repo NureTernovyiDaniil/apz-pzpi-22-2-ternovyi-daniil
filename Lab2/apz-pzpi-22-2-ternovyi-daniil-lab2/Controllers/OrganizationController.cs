@@ -1,5 +1,6 @@
 ﻿using ChefMate_backend.Models;
 using ChefMate_backend.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChefMate_backend.Controllers
@@ -15,6 +16,7 @@ namespace ChefMate_backend.Controllers
             _organizationRepository = organizationRepository;
         }
 
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -22,6 +24,7 @@ namespace ChefMate_backend.Controllers
             return Ok(orgs);
         }
 
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -35,6 +38,7 @@ namespace ChefMate_backend.Controllers
             return BadRequest();
         }
 
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpPost]
         public async Task<IActionResult> Post(OrganizationDto organizationDto)
         {
@@ -42,6 +46,7 @@ namespace ChefMate_backend.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpPut]
         public async Task<IActionResult> Put(OrganizationDto organizationDto)
         {
@@ -51,6 +56,7 @@ namespace ChefMate_backend.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {

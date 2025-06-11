@@ -37,7 +37,7 @@ namespace ChefMate_backend.Controllers
             return Ok(menu);
         }
 
-        //[Authorize(Roles = "Admin, Superadmin")]
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpPost]
         public async Task<ActionResult> InsertMenu([FromBody] MenuDto menuDto)
         {
@@ -55,7 +55,7 @@ namespace ChefMate_backend.Controllers
             return BadRequest();
         }
 
-        //[Authorize(Roles = "Admin, Superadmin")]
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateMenu(Guid id, [FromBody] MenuDto menuDto)
         {
@@ -75,7 +75,7 @@ namespace ChefMate_backend.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin, Superadmin")]
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteMenu(Guid id)
         {
@@ -92,7 +92,7 @@ namespace ChefMate_backend.Controllers
             return NoContent();
         }
 
-        //[Authorize(Roles = "Admin, Superadmin")]
+        [Authorize(Roles = "Admin, Superadmin")]
         [HttpDelete]
         public async Task<ActionResult> DeleteMenu([FromBody] MenuDto menuDto)
         {
